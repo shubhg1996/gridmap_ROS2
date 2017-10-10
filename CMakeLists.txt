@@ -6,6 +6,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  rospy
   grid_map_core
   grid_map_ros
   grid_map_cv
@@ -20,12 +21,26 @@ find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   octomap_msgs
   filters
+  tf
+  tf2
   tf2_ros
   image_transport
+  std_msgs
+  message_generation
 )
 
 find_package(octomap REQUIRED)
 
+add_service_files(DIRECTORY srv
+  FILES
+  classify.srv
+)
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+  sensor_msgs
+)
 ###################################
 ## catkin specific configuration ##
 ###################################
@@ -38,7 +53,7 @@ find_package(octomap REQUIRED)
 catkin_package(
   INCLUDE_DIRS include
 #  LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS
+  CATKIN_DEPENDS message_runtime std_msgs sensor_msgs
 #  DEPENDS system_lib
 )
 
@@ -61,12 +76,37 @@ add_executable(
   src/gridmapper_node.cpp
 )
 
+add_executable(
+  tf_broadcaster
+  src/tf_broadcaster.cpp
+)
+
+add_executable(
+  img_pub
+  src/img_pub.cpp
+)
+
 ## Specify libraries to link a library or executable target against
 target_link_libraries(
   gridmapper_node
   ${catkin_LIBRARIES}
 )
 
+target_link_libraries(
+  tf_broadcaster
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(
+  img_pub
+  ${catkin_LIBRARIES}
+)
+
 #############
 ## Install ##
 #############
+
+catkin_install_python(
+  PROGRAMS scripts/classifier.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)

@@ -66,8 +66,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 0.0849175
-        Min Value: -0.165153
+        Max Value: 1.0
+        Min Value: 0.0
         Value: false
       Axis: Z
       Channel Name: z
@@ -96,8 +96,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: false
       Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
+        Max Value: 1.0
+        Min Value: 0.0
         Value: true
       Axis: Z
       Channel Name: error

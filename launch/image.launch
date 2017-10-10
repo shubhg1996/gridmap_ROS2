@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="gridmapper" type="img_pub" name="img_publisher" output="screen" />
+    <node pkg="gridmapper" type="tf_broadcaster" name="tf_broadcaster" output="screen" />
+</launch>  
