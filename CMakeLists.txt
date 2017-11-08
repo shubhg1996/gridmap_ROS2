@@ -107,6 +107,6 @@ target_link_libraries(
 #############
 
 catkin_install_python(
-  PROGRAMS scripts/classifier.py
+  PROGRAMS scripts/classifier_oll.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
