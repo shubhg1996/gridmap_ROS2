@@ -16,7 +16,7 @@
 #define RESOLUTION 0.01
 #define RES2 0.001
 #define step 0.005/RES2
-#define ALGO 0
+#define ALGO 1
 
 using namespace grid_map;
 using namespace cv;

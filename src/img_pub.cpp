@@ -9,11 +9,13 @@ int main(int argc, char** argv)
   ros::NodeHandle nh;
   image_transport::ImageTransport it(nh);
   image_transport::Publisher pub = it.advertise("camera/image", 1);
-  cv::Mat image = cv::imread("/home/shubh/Documents/lane data/frames/f46.jpg", CV_LOAD_IMAGE_COLOR);
-  cv::waitKey(30);
-  sensor_msgs::ImagePtr msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image).toImageMsg();
-  ros::Rate loop_rate(0.2);
-  while (nh.ok()) {
+  ros::Rate loop_rate(0.5);
+  sensor_msgs::ImagePtr msg;
+  cv::Mat image;
+  int i = 46;
+  while(nh.ok()) {
+    image = cv::imread(cv::format("/home/shubh/catkin_ws/src/gridmapper/data/f%d.jpg",i), CV_LOAD_IMAGE_COLOR);
+    msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image).toImageMsg();
     ros::Time time = ros::Time::now();
     (msg->header).stamp = time;
     pub.publish(msg);
